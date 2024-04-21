@@ -1,10 +1,5 @@
 #include <iostream>
 
-char to_uppercase(unsigned char c)
-{
-	return std::toupper(c);
-}
-
 int main(int argc, char *argv[])
 {
 	std::string tmp;
@@ -17,7 +12,7 @@ int main(int argc, char *argv[])
 		{
 			tmp = argv[i];
 			for(unsigned long j = 0; j < tmp.length(); j++)
-				std::cout << std::toupper(tmp[j]);
+				tmp[j] = std::toupper(tmp[j]);
 			std::cout << tmp;
 		}
 		std::cout << std::endl;

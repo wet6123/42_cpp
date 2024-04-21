@@ -12,9 +12,10 @@ class PhoneBook
 		int idx;
 		std::string _getTenChr(std::string input);
 	public:
-		PhoneBook();
+		PhoneBook(void);
 		void add(std::string firstName, std::string lastName, std::string nickName, std::string phoneNumber, std::string darkestSecret);
 		void search(int selected);
+		int getList(void);
 };
 
 #endif
