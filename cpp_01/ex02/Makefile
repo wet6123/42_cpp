@@ -1,14 +1,14 @@
-NAME = megaphone
+NAME = main
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
-SRCS = megaphone.cpp
-OBJS = megaphone.o
+SRCS = main.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-$(OBJS): $(SRCS)
+.cpp: .o
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)

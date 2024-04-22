@@ -1,16 +1,15 @@
-NAME = account
+NAME = main
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
-HEADER = Account.hpp
-SRCS = Account.cpp tests.cpp
-OBJS = Account.o tests.o
+SRCS = main.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
 .cpp: .o
-	$(CXX) $(CXXFLAGS) -I $(HEADER) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@

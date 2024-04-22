@@ -1,16 +1,15 @@
-NAME = phonebook
+NAME = main
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 RM = rm -f
 
-HEADER = contact.hpp phonebook.hpp
-SRCS = contact.cpp phonebook.cpp main.cpp
-OBJS = contact.o phonebook.o main.o
+SRCS = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
 
 .cpp: .o
-	$(CXX) $(CXXFLAGS) -I $(HEADER) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
