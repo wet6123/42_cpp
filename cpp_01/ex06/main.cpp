@@ -4,8 +4,8 @@ int main(int argc, char* argv[])
 {
 	Harl	harl;
 
-	harl.complain("debug");
-	harl.complain("info");
-	harl.complain("warning");
-	harl.complain("error");
+	if (argc == 2)
+		harl.complain(argv[1]);
+	else
+		std::cout << "Input Error: Arguments error" << std::endl;
 }
