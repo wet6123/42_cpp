@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstring>
 
 int main(int argc, char **argv)
 {
@@ -16,7 +17,7 @@ int main(int argc, char **argv)
 
 	if (argc != 4)
 	{
-		std::cout << "Error: Wrong input.";
+		std::cout << "Error: Wrong input." << std::endl;
 		return (0);
 	}
 
@@ -24,7 +25,7 @@ int main(int argc, char **argv)
 	filename.append(".replace");
 
 	fin.open(argv[1]);
-	fout.open(filename);
+	fout.open(filename.c_str());
 
 	while(fin.get(tmp))
 		oss << tmp;

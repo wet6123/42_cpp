@@ -7,7 +7,8 @@ Zombie*	zombieHorde( int N, std::string name )
 	for(int i = 0; i < N; i++)
 	{
 		// std::string tmp;
-		// tmp = name + " " + std::to_string(i);
+		// char num = '0' + i;
+		// tmp = name + " " + num;
 		// zombies[i].setName(tmp);
 		zombies[i].setName(name);
 	}
