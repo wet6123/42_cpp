@@ -23,7 +23,7 @@ Fixed::Fixed(const float number)
 Fixed::Fixed(const Fixed& obj)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = obj;
+	this->number = obj.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& obj)
@@ -51,12 +51,12 @@ void	Fixed::setRawBits(int const raw)
 }
 float Fixed::toFloat(void) const
 {
-	return ((float) this->number / (1 << this->fraction_bits));
+	return (static_cast<float>(this->getRawBits()) / (1 << this->fraction_bits));
 }
 
 int Fixed::toInt(void) const
 {
-	return (this->number >> this->fraction_bits);
+	return (this->getRawBits() >> this->fraction_bits);
 }
 
 std::ostream& operator<<(std::ostream& output_stream, const Fixed& fixed)

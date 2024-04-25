@@ -113,32 +113,6 @@ Fixed Fixed::operator/(const Fixed &obj) const
 	return (tmp);
 }
 
-// Fixed&	Fixed::operator++(void)
-// {
-// 	this->setRawBits(this->getRawBits() + (1 << this->fraction_bits));
-// 	return (*this);
-// }
-
-// const Fixed	Fixed::operator++(int)
-// {
-// 	const Fixed result(*this);
-// 	this->setRawBits(this->getRawBits() + (1 << this->fraction_bits));
-// 	return (result);
-// }
-
-// Fixed&	Fixed::operator--(void)
-// {
-// 	this->setRawBits(this->getRawBits() - (1 << this->fraction_bits));
-// 	return (*this);
-// }
-
-// const Fixed	Fixed::operator--(int)
-// {
-// 	const Fixed result(*this);
-// 	this->setRawBits(this->getRawBits() - (1 << this->fraction_bits));
-// 	return (result);
-// }
-
 Fixed&	Fixed::operator++(void)
 {
 	this->number++;
