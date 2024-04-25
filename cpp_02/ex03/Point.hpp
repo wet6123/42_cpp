@@ -18,7 +18,7 @@ class Point
 		Fixed getY(void) const;
 };
 
-float area ( Point const p1, Point const p2, Point const p3 );
-bool bsp( Point const a, Point const b, Point const c, Point const point );
+Fixed sign(const Point point, const Point a, const Point b);
+bool bsp( const Point a, const Point b, const Point c, const Point point );
 
 #endif
