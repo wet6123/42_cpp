@@ -49,6 +49,7 @@ void	Fixed::setRawBits(int const raw)
 {
 	this->number = raw;
 }
+
 float Fixed::toFloat(void) const
 {
 	return (static_cast<float>(this->getRawBits()) / (1 << this->fraction_bits));
