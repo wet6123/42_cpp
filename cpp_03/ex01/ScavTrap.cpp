@@ -10,6 +10,7 @@ ScavTrap::ScavTrap(void)
 }
 
 ScavTrap::ScavTrap(const ScavTrap& obj)
+: ClapTrap(obj)
 {
 	this->name = obj.name;
 	this->hitPoint = obj.hitPoint;
@@ -25,6 +26,7 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& obj)
 	this->energyPoint = obj.energyPoint;
 	this->attackDamage = obj.attackDamage;
 	std::cout << "ScavTrap copy assignment operator called" << std::endl;
+	return (*this);
 }
 
 ScavTrap::ScavTrap(std::string name)
@@ -50,6 +52,7 @@ void	ScavTrap::attack(const std::string& target)
 		return;
 	}
 	// attack
+	this->energyPoint = this->energyPoint - 1;
 	std::cout << "ScavTrap " << this->name << " attacks " << target << ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
 
@@ -60,5 +63,6 @@ void	ScavTrap::guardGate(void)
 		std::cout << "ScavTrap " << this->name << " can not move." << std::endl;
 		return;
 	}
+	this->energyPoint = this->energyPoint - 1;
 	std::cout << "ScavTrap " << this->name << " is now in Gate keeper mode." << std::endl;
 }
