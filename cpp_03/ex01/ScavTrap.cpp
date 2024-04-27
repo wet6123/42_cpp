@@ -1,11 +1,12 @@
 #include "ScavTrap.hpp"
 
 ScavTrap::ScavTrap(void)
-: ClapTrap(name)
+: ClapTrap()
 {
-	hitPoint = 100;
-	energyPoint = 50;
-	attackDamage = 20;
+	this->name = "noname";
+	this->hitPoint = 100;
+	this->energyPoint = 50;
+	this->attackDamage = 20;
 	std::cout << "ScavTrap default constructor called" << std::endl;
 }
 
@@ -32,9 +33,10 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& obj)
 ScavTrap::ScavTrap(std::string name)
 : ClapTrap(name)
 {
-	hitPoint = 100;
-	energyPoint = 50;
-	attackDamage = 20;
+	this->name = name;
+	this->hitPoint = 100;
+	this->energyPoint = 50;
+	this->attackDamage = 20;
 	std::cout << "ScavTrap constructor called" << std::endl;
 }
 
