@@ -10,6 +10,7 @@ FragTrap::FragTrap(void)
 }
 
 FragTrap::FragTrap(const FragTrap& obj)
+: ClapTrap(obj)
 {
 	this->name = obj.name;
 	this->hitPoint = obj.hitPoint;
@@ -25,6 +26,7 @@ FragTrap& FragTrap::operator=(const FragTrap& obj)
 	this->energyPoint = obj.energyPoint;
 	this->attackDamage = obj.attackDamage;
 	std::cout << "FragTrap copy assignment operator called" << std::endl;
+	return (*this);
 }
 
 FragTrap::FragTrap(std::string name)
@@ -48,5 +50,6 @@ void	FragTrap::highFivesGuys(void)
 		std::cout << "FragTrap " << this->name << " can not move." << std::endl;
 		return;
 	}
+	this->energyPoint = this->energyPoint - 1;
 	std::cout << "high fives guys!!!!" << std::endl;
 }

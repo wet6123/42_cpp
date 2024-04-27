@@ -22,6 +22,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& obj)
 	this->energyPoint = obj.energyPoint;
 	this->attackDamage = obj.attackDamage;
 	std::cout << "ClapTrap copy assignment operator called" << std::endl;
+	return (*this);
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -44,13 +45,14 @@ void	ClapTrap::attack(const std::string& target)
 		return;
 	}
 	// attack
+	this->energyPoint = this->energyPoint - 1;
 	std::cout << "ClapTrap " << this->name << " attacks " << target << ", causing " << this->attackDamage << " points of damage!" << std::endl;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	// hit point나 energy point가 없으면 동작 못함
-	if (canMove() == false)
+	// hit point가 없으면 동작 못함
+	if (this->hitPoint <= 0)
 	{
 		std::cout << "ClapTrap " << this->name << " has no hit points." << std::endl;
 		return;
