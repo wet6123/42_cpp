@@ -8,6 +8,7 @@ Dog::Dog(void)
 }
 
 Dog::Dog(const Dog& obj)
+: Animal()
 {
 	this->type = obj.type;
 	std::cout << "Dog copy constructor called." << std::endl;
