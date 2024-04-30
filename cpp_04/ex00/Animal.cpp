@@ -8,14 +8,18 @@ Animal::Animal(void)
 
 Animal::Animal(const Animal& obj)
 {
-	this->type = obj.type;
 	std::cout << "Animal copy constructor called." << std::endl;
+	if (this == &obj)
+		return ;
+	this->type = obj.type;
 }
 
 Animal& Animal::operator=(const Animal& obj)
 {
-	this->type = obj.type;
 	std::cout << "Animal copy assignment operator called." << std::endl;
+	if (this == &obj)
+		return (*this);
+	this->type = obj.type;
 	return (*this);
 }
 
