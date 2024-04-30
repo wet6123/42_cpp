@@ -12,7 +12,7 @@ WrongCat::WrongCat(const WrongCat& obj)
 {
 	std::cout << "WrongCat copy constructor called." << std::endl;
 	if (this->type != obj.type)
-		this->type = obj.type
+		this->type = obj.type;
 }
 
 WrongCat& WrongCat::operator=(const WrongCat& obj)
