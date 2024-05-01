@@ -8,11 +8,25 @@ Brain::Brain(void)
 Brain::Brain(const Brain &obj)
 {
 	std::cout << "Brain copy constructor called." << std::endl;
+  if (this != &obj)
+  {
+    for(int i = 0; i < 100; i++)
+    {
+      this->setIdeas(i, obj.getIdeas(i));
+    }
+  }
 }
 
 Brain& Brain::operator=(const Brain &obj)
 {
   std::cout << "Brain copy assignment operator called." << std::endl;
+  if (this != &obj)
+  {
+    for(int i = 0; i < 100; i++)
+    {
+      this->setIdeas(i, obj.getIdeas(i));
+    }
+  }
   return (*this);
 }
 

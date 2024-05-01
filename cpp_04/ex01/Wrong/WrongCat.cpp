@@ -1,22 +1,25 @@
 # include "WrongCat.hpp"
 
 WrongCat::WrongCat(void)
-: Animal()
+: WrongAnimal()
 {
-	type = "WrongCat";
 	std::cout << "WrongCat default constructor called." << std::endl;
+	type = "WrongCat";
 }
 
 WrongCat::WrongCat(const WrongCat& obj)
+: WrongAnimal()
 {
-	this->type = obj.type;
 	std::cout << "WrongCat copy constructor called." << std::endl;
+	if (this->type != obj.type)
+		this->type = obj.type;
 }
 
 WrongCat& WrongCat::operator=(const WrongCat& obj)
 {
-	this->type = obj.type;
 	std::cout << "WrongCat copy assignment operator called." << std::endl;
+	if (this->type != obj.type)
+		this->type = obj.type;
 	return (*this);
 }
 

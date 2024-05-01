@@ -1,31 +1,38 @@
-# include "Dog.hpp"
+#include "Dog.hpp"
 
 Dog::Dog(void)
 : Animal()
 {
+	std::cout << "Dog default constructor called." << std::endl;
 	type = "Dog";
 	brain = new Brain();
 	for(int i = 0; i < 100; i++)
 	{
-		brain->setIdeas(i, "Dog idea" + std::to_string(i));
+		std::stringstream ss;
+		ss << "Dog idea" << i;
+		brain->setIdeas(i, ss.str());
 	}
-	std::cout << "Dog default constructor called." << std::endl;
 }
 
 Dog::Dog(const Dog& obj)
+: Animal()
 {
+	std::cout << "Dog copy constructor called." << std::endl;
+	if (this == &obj)
+		return ;
 	this->type = obj.type;
-	delete this->brain;
 	this->brain = new Brain();
 	for(int i = 0; i < 100; i++)
 	{
 		this->brain->setIdeas(i, obj.brain->getIdeas(i));
 	}
-	std::cout << "Dog copy constructor called." << std::endl;
 }
 
 Dog& Dog::operator=(const Dog& obj)
 {
+	std::cout << "Dog copy assignment operator called." << std::endl;
+	if (this == &obj)
+		return (*this);
 	this->type = obj.type;
 	delete this->brain;
 	this->brain = new Brain();
@@ -33,14 +40,13 @@ Dog& Dog::operator=(const Dog& obj)
 	{
 		this->brain->setIdeas(i, obj.brain->getIdeas(i));
 	}
-	std::cout << "Dog copy assignment operator called." << std::endl;
 	return (*this);
 }
 
 Dog::~Dog(void)
 {
-	delete brain;
 	std::cout << "Dog destructor called." << std::endl;
+	delete brain;
 }
 
 void Dog::makeSound() const
