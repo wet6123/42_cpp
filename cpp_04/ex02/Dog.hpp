@@ -2,6 +2,7 @@
 # define DOG_HPP
 
 # include <iostream>
+# include <sstream>
 # include "Animal.hpp"
 # include "Brain.hpp"
 

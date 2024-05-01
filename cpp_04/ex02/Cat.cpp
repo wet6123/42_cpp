@@ -3,29 +3,36 @@
 Cat::Cat(void)
 : Animal()
 {
+	std::cout << "Cat default constructor called." << std::endl;
 	type = "Cat";
 	brain = new Brain();
 	for(int i = 0; i < 100; i++)
 	{
-		brain->setIdeas(i, "Cat idea" + std::to_string(i));
+		std::stringstream ss;
+		ss << "Cat idea" << i;
+		brain->setIdeas(i, ss.str());
 	}
-	std::cout << "Cat default constructor called." << std::endl;
 }
 
 Cat::Cat(const Cat& obj)
+: Animal()
 {
+	std::cout << "Cat copy constructor called." << std::endl;
+	if (this == &obj)
+		return ;
 	this->type = obj.type;
-	delete this->brain;
 	this->brain = new Brain();
 	for(int i = 0; i < 100; i++)
 	{
 		this->brain->setIdeas(i, obj.brain->getIdeas(i));
 	}
-	std::cout << "Cat copy constructor called." << std::endl;
 }
 
 Cat& Cat::operator=(const Cat& obj)
 {
+	std::cout << "Cat copy assignment operator called." << std::endl;
+	if (this == &obj)
+		return (*this);
 	this->type = obj.type;
 	delete this->brain;
 	this->brain = new Brain();
@@ -33,14 +40,13 @@ Cat& Cat::operator=(const Cat& obj)
 	{
 		this->brain->setIdeas(i, obj.brain->getIdeas(i));
 	}
-	std::cout << "Cat copy assignment operator called." << std::endl;
 	return (*this);
 }
 
 Cat::~Cat(void)
 {
-	delete brain;
 	std::cout << "Cat destructor called." << std::endl;
+	delete brain;
 }
 
 void Cat::makeSound() const
