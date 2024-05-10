@@ -17,25 +17,25 @@ int main()
 
 		// increment, decrement test
 		Bureaucrat test("test", 150);
-		std::cout << test.getName() << " " << test.getGrade() << '\n';
+		std::cout << test << '\n';
 
  		test.incrementGrade();
-		std::cout << test.getName() << " " << test.getGrade() << '\n';
+		std::cout << test << '\n';
 		
 		// test.decrementGrade();
 		test.decrementGrade();
-		std::cout << test.getName() << " " << test.getGrade() << '\n';
+		std::cout << test << '\n';
 
 		// --------------------------------------------------------------
 		Bureaucrat test2("test2", 1);
-		std::cout << test2.getName() << " " << test2.getGrade() << '\n';
+		std::cout << test2 << '\n';
 
  		test2.decrementGrade();
-		std::cout << test2.getName() << " " << test2.getGrade() << '\n';
+		std::cout << test2 << '\n';
 
 		// test2.incrementGrade();
 		test2.incrementGrade();
-		std::cout << test2.getName() << " " << test2.getGrade() << '\n';
+		std::cout << test2 << '\n';
 	}
 	catch(const std::exception& e)
 	{

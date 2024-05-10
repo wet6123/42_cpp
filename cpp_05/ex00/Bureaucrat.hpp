@@ -22,8 +22,8 @@ class Bureaucrat
         Bureaucrat(std::string name, int grade);
 
         // fuction
-        std::string getName(void);
-        int getGrade(void);
+        std::string getName(void) const;
+        int getGrade(void) const;
         void incrementGrade(void);
         void decrementGrade(void);
 
