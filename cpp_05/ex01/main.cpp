@@ -9,6 +9,7 @@ int main()
 		Bureaucrat seongwol("seongwol", 101);
 		Form aguform1("AGU form 1", false, 100, 100);
 		Form aguform2("AGU form 2", false, 100, 100);
+		// Form aguform3("AGU form 2", false, 100, 151);
 		std::cout << junsbae << '\n';
 		std::cout << seongwol << '\n';
 		std::cout << aguform1 << '\n';

@@ -11,7 +11,25 @@ Form::Form(void)
 
 Form::Form(std::string name, bool sign, int signGrade, int execGrade)
 : name(name), sign(sign), signGrade(signGrade), execGrade(execGrade)
-{}
+{
+    if (signGrade > 150)
+    {
+        throw Form::GradeTooLowException();
+    }
+    else if (signGrade < 1)
+    {
+        throw Form::GradeTooHighException();
+    }
+
+    if (execGrade > 150)
+    {
+        throw Form::GradeTooLowException();
+    }
+    else if (execGrade < 1)
+    {
+        throw Form::GradeTooHighException();
+    }
+}
 
 Form::~Form(void)
 {}
