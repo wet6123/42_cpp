@@ -1,10 +1,5 @@
 #include "Form.hpp"
 
-        // const std::string name;
-        // bool sign;
-        // const int signGrade;
-        // const int execGrade;
-
 Form::Form(void)
 : name("default"), sign(false), signGrade(150), execGrade(150)
 {}
@@ -39,19 +34,19 @@ bool Form::getSign(void) const { return (this->sign); }
 int Form::getSignGrade(void) const { return (this->signGrade); }
 int Form::getExecGrade(void) const { return (this->execGrade); }
 
+void Form::setSign(bool status) { this->sign = status; }
+
 void Form::beSigned(const Bureaucrat& obj)
 {
-    if (this->signGrade < obj.getGrade())
+    if (this->signGrade >= obj.getGrade())
     {
-        // can not sign
-        std::cout << obj.getName() << " couldn’t sign " << this->name << " because ";
-        throw Form::GradeTooLowException();
+        // can sign
+        setSign(true);
     }
     else
     {
-        // can sign
-        // this->sign = true;
-        std::cout << obj.getName() << " signed " << this->name << "\n";
+        // can not sign
+        throw Form::GradeTooLowException();
     }
 }
 

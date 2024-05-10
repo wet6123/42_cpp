@@ -17,14 +17,12 @@ int main()
 
 
 		std::cout << "\n-------- junsbae sign AGU form 1 --------" << '\n';
-		aguform1.beSigned(junsbae);
+		junsbae.signForm(aguform1);
 		std::cout << aguform1 << '\n';
 		
 		std::cout << "\n-------- seongwol sign AGU form 2 --------" << '\n';
-		aguform2.beSigned(seongwol);
+		seongwol.signForm(aguform2);
 		std::cout << aguform2 << '\n';
-
-		std::cout << junsbae << '\n';
 	}
 	catch(const std::exception& e)
 	{

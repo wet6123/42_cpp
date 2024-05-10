@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 // occf
 Bureaucrat::Bureaucrat(void)
@@ -63,6 +64,22 @@ void Bureaucrat::decrementGrade(void)
         throw Bureaucrat::GradeTooLowException();
     else
         this->grade++;
+}
+
+void Bureaucrat::signForm(Form& obj)
+{
+    try
+    {
+        // can sign
+        obj.beSigned(*this);
+        std::cout << this->name << " signed " << obj.getName() << "\n";
+    }
+    catch(const std::exception& e)
+    {
+        // can not sign
+        std::cout << this->name << " couldn’t sign " << obj.getName() << " because ";
+        std::cerr << e.what() << '\n';
+    }
 }
 
 // exception
