@@ -16,7 +16,7 @@ class Form
         Form& operator=(const Form& obj);
     public:
         Form(void);
-        Form(std::string name, bool sign, int signGrade, int execGrade);
+        Form(std::string name, int signGrade, int execGrade);
         ~Form(void);
 
         std::string getName(void) const;

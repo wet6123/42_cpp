@@ -4,8 +4,8 @@ Form::Form(void)
 : name("default"), sign(false), signGrade(150), execGrade(150)
 {}
 
-Form::Form(std::string name, bool sign, int signGrade, int execGrade)
-: name(name), sign(sign), signGrade(signGrade), execGrade(execGrade)
+Form::Form(std::string name, int signGrade, int execGrade)
+: name(name), sign(false), signGrade(signGrade), execGrade(execGrade)
 {
     if (signGrade > 150)
     {
