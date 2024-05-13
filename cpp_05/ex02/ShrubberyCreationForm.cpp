@@ -16,7 +16,6 @@ ShrubberyCreationForm::~ShrubberyCreationForm(void)
 
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-    // check executable
     // create <target>_shruberry file
     std::ofstream file(getName().c_str());
     
