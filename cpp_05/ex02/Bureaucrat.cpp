@@ -95,7 +95,7 @@ void Bureaucrat::executeForm(const AForm& obj)
         if (this->getGrade() > obj.getExecGrade())
         {
             std::cout << this->name << " couldn't execute " << obj.getName() << " because ";
-        	throw AForm::GradeTooLowException();
+            throw AForm::GradeTooLowException();
         }
         // execute
         obj.execute(*this);

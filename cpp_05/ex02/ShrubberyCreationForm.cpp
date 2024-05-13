@@ -33,6 +33,5 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const
     else
     {
         std::cout << "Failed to create file\n";
-        return ;
     }
 }
