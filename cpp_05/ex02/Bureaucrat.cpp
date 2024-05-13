@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 
 // occf
 Bureaucrat::Bureaucrat(void)
@@ -66,7 +66,7 @@ void Bureaucrat::decrementGrade(void)
         this->grade++;
 }
 
-void Bureaucrat::signForm(Form& obj)
+void Bureaucrat::signForm(AForm& obj)
 {
     try
     {
