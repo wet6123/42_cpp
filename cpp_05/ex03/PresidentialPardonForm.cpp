@@ -1,17 +1,21 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(void)
-: AForm("default_pardon", 25, 5)
-{}
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& obj)
+: AForm("presidential pardon", 25, 5)
+{
+  this->target = obj.target;
+}
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
-: AForm(target + "_pardon", 25, 5, target)
-{}
+: AForm("presidential pardon", 25, 5)
+{
+  this->target = target;
+}
 
 PresidentialPardonForm::~PresidentialPardonForm(void)
 {}
 
-void PresidentialPardonForm::execute(const Bureaucrat& executor) const
+void PresidentialPardonForm::executeChild(void) const
 {
-  std::cout << this->getTarget() << " has been pardoned by Zaphod Beeblebrox." << std::endl;
+  std::cout << this->target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }

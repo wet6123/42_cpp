@@ -50,6 +50,26 @@ void AForm::beSigned(const Bureaucrat& obj)
     }
 }
 
+void AForm::execute(Bureaucrat const & executor) const
+{
+    // check sign and grade
+    if (!this->sign)
+    {
+        std::cout << executor.getName() << " couldn't execute " << this->name << " because ";
+        throw AForm::FormNotSignedException();
+    }
+    else if (this->execGrade < executor.getGrade())
+    {
+        std::cout << executor.getName() << " couldn't execute " << this->name << " because ";
+        throw AForm::GradeTooLowException();
+    }
+    else
+    {
+        std::cout << executor.getName() << " executes " << this->name << "\n";
+        executeChild();
+    }
+}
+
 const char * AForm::GradeTooHighException::what(void) const throw()
 {
     return "Grade too high";
@@ -60,7 +80,7 @@ const char * AForm::GradeTooLowException::what(void) const throw()
 	return "Grade too low";
 }
 
-const char * AForm::FormNotSignedExeception::what(void) const throw()
+const char * AForm::FormNotSignedException::what(void) const throw()
 {
     return "Form not signed";
 }
