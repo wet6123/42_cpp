@@ -36,3 +36,8 @@ void ShrubberyCreationForm::executeChild(void) const
         std::cout << "Failed to create file\n";
     }
 }
+
+AForm* clone(const std::string& target)
+{
+    return (new ShrubberyCreationForm(target));
+}

@@ -16,6 +16,7 @@ class ShrubberyCreationForm : public AForm
         ShrubberyCreationForm(const std::string& target);
         ~ShrubberyCreationForm(void);
         void executeChild(void) const;
+        static AForm* clone(const std::string& target);
 };
 
 #endif
