@@ -15,6 +15,7 @@ class PresidentialPardonForm : public AForm
     PresidentialPardonForm(const std::string& target);
     ~PresidentialPardonForm(void);
     void executeChild(void) const;
+    static AForm* clone(const std::string& target);
 };
 
 #endif

@@ -20,9 +20,19 @@ AForm& Intern::makeForm(const std::string& formName, const std::string& target)
 		&PresidentialPardonForm::clone
 	};
 
-	AForm * (*f)(const std::string &) = ShrubberyCreationForm::clone;
+	// AForm * (*f)(const std::string &) = ShrubberyCreationForm::clone;
 	for (int i = 0; i < OBJ_CNT; i++)
 	{
-		
+		if (name[i] == formName)
+		{
+			std::cout << "Intern creates " << formName << std::endl;
+			return (*f[i](target));
+		}
 	}
+	throw Intern::FormNotFoundException();
+}
+
+const char *Intern::FormNotFoundException::what() const throw()
+{
+	return ("Form not found.");
 }

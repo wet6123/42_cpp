@@ -24,3 +24,8 @@ void RobotomyRequestForm::executeChild(void) const
     else
         std::cout << "Robotomization failed\n";
 }
+
+AForm* clone(const std::string& target)
+{
+    return (new RobotomyRequestForm(target));
+}

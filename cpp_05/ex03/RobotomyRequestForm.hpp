@@ -15,6 +15,7 @@ class RobotomyRequestForm : public AForm
         RobotomyRequestForm(const std::string& target);
         ~RobotomyRequestForm(void);
         void executeChild(void) const;
+        static AForm* clone(const std::string& target);
 };
 
 #endif
