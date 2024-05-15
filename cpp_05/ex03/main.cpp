@@ -11,11 +11,11 @@ int main()
 	{
 		Bureaucrat junsbae("junsbae", 1);
 		Intern intern;
-		AForm *shrubberyForm = intern.makeForm("shrubbery creation", "home");
+		AForm* shrubberyForm = intern.makeForm("shrubbery creation", "home");
 
 		// ShrubberyCreationForm
-		junsbae.signForm(shrubberyForm);
-		junsbae.executeForm(shrubberyForm);
+		junsbae.signForm(*shrubberyForm);
+		junsbae.executeForm(*shrubberyForm);
 	}
 	catch(const std::exception& e)
 	{

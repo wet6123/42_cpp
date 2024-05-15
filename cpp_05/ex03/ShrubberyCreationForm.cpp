@@ -37,7 +37,7 @@ void ShrubberyCreationForm::executeChild(void) const
     }
 }
 
-AForm* clone(const std::string& target)
+AForm* ShrubberyCreationForm::clone(const std::string& target)
 {
     return (new ShrubberyCreationForm(target));
 }

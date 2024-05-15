@@ -11,7 +11,7 @@ Intern::Intern(void)
 Intern::~Intern(void)
 {}
 
-AForm& Intern::makeForm(const std::string& formName, const std::string& target)
+AForm* Intern::makeForm(const std::string& formName, const std::string& target)
 {
 	const std::string name[OBJ_CNT] = {"shrubbery creation", "robotomy request", "presidential pardon"};
 	AForm* (*f[])(const std::string& target) = {
@@ -26,7 +26,7 @@ AForm& Intern::makeForm(const std::string& formName, const std::string& target)
 		if (name[i] == formName)
 		{
 			std::cout << "Intern creates " << formName << std::endl;
-			return (*f[i](target));
+			return (f[i](target));
 		}
 	}
 	throw Intern::FormNotFoundException();

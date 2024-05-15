@@ -20,7 +20,7 @@ void PresidentialPardonForm::executeChild(void) const
   std::cout << this->target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
 }
 
-AForm* clone(const std::string& target)
+AForm* PresidentialPardonForm::clone(const std::string& target)
 {
     return (new PresidentialPardonForm(target));
 }

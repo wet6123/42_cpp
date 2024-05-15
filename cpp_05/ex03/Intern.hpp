@@ -13,12 +13,12 @@ class Intern
 		Intern(void);
 		~Intern(void);
 
-		AForm& makeForm(const std::string& formName, const std::string& target);
+		AForm* makeForm(const std::string& formName, const std::string& target);
 
 		class FormNotFoundException : public std::exception
 		{
 			public:
-				const char * what() const throw()
+				const char * what() const throw();
 		};
 };
 
