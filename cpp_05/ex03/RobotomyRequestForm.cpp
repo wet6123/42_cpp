@@ -19,6 +19,7 @@ void RobotomyRequestForm::executeChild(void) const
 {
     std::cout << "*drilling noises*\n";
     
+    srand(time(NULL));
     if (std::rand() % 2)
         std::cout << this->target << " has been robotomized\n";
     else
