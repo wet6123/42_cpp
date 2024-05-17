@@ -16,8 +16,7 @@ void ScalarConverter::convert(const std::string& str)
 	{
 		value = std::strtod(str.c_str(), &end);
 		// throw exception
-		// 1.f
-		if ((*end && std::strcmp(end, "f")) || (str[0] != '+' && str[0] != '-' && !std::isdigit(str[0])))
+		if ((*end && std::strcmp(end, "f")) || (str[0] != '+' && str[0] != '-' && !std::isdigit(str[0])) || (str != end && *(end - 1) == '.'))
 			throw std::bad_alloc();
 	}
 	catch (std::exception &e)
