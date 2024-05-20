@@ -1,4 +1,4 @@
-#include "Serialize.hpp"
+#include "Serializer.hpp"
 #include "Data.hpp"
 #include <iostream>
 
@@ -8,11 +8,10 @@ int main()
     data.s = "Hello, world!";
     data.n = 42;
 
-    uintptr_t raw = serialize(&data);
-    Data *ptr = deserialize(raw);
+    uintptr_t raw = Serializer::serialize(&data);
+    Data *ptr = Serializer::deserialize(raw);
 
     std::cout << "Data: " << ptr->s << " " << ptr->n << std::endl;
 
-    delete ptr;
     return 0;
 }

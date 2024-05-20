@@ -2,6 +2,8 @@
 # define SERIALIZER_HPP
 
 # include <iostream>
+# include <inttypes.h>
+# include "Data.hpp"
 
 class Serializer
 {
