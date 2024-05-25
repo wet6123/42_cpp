@@ -7,10 +7,10 @@
 template<typename T>
 class Array
 {
-    public:
+    private:
         T *_arr;
         size_t _size;
-
+    public:
         Array(void);
         Array(unsigned int n);
         Array(Array const &obj);
