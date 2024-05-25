@@ -1,12 +1,12 @@
 #include "iter.hpp"
 #include <iostream>
 
-void print(const int &value)
+void print(int &value)
 {
     std::cout << value << std::endl;
 }
 
-void print(const std::string &value)
+void print(std::string &value)
 {
     std::cout << value << std::endl;
 }
