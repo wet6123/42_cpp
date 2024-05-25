@@ -21,14 +21,24 @@ void ScalarConverter::convert(const std::string& str)
 			// char
 			value = static_cast<double>(str[0]);
 		}
-		else if (
-			(*end && std::strcmp(end, "f")) ||
-			(str[0] != '+' && str[0] != '-' && !std::isdigit(str[0]) &&
-				std::strcmp(str.c_str(), "nan") && std::strcmp(str.c_str(), "nanf") && std::strcmp(str.c_str(), "inf") && std::strcmp(str.c_str(), "inff")) ||
-			(str != end && *(end - 1) == '.'))
-		{	
-			// exception
-			throw std::bad_alloc();
+		else if (std::strcmp(str.c_str(), "nan") &&
+		std::strcmp(str.c_str(), "nanf") &&
+		std::strcmp(str.c_str(), "inf") &&
+		std::strcmp(str.c_str(), "inff") &&
+		std::strcmp(str.c_str(), "+inf") &&
+		std::strcmp(str.c_str(), "+inff") &&
+		std::strcmp(str.c_str(), "-inf") &&
+		std::strcmp(str.c_str(), "-inff"))
+		{
+			if (
+				(*end && std::strcmp(end, "f")) ||
+				(str[0] != '+' && str[0] != '-' && !std::isdigit(str[0])) ||
+				((str[0] == '+' || str[0] == '-') && !std::isdigit(str[1])) ||
+				(str != end && *(end - 1) == '.'))
+			{	
+				// exception
+				throw std::bad_alloc();
+			}
 		}
 	}
 	catch (std::exception &e)
