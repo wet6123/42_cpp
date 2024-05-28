@@ -1,10 +1,11 @@
 #include "iter.hpp"
 #include <iostream>
 
-// void print(int &value)
-// {
-//     std::cout << value << std::endl;
-// }
+int print(int &value)
+{
+    std::cout << value << std::endl;
+    return value;
+}
 
 // void print(std::string &value)
 // {
@@ -36,7 +37,7 @@ std::ostream & operator<<( std::ostream & o, Awesome const & rhs )
 }
 
 template< typename T >
-void print( T& x )
+void qprint( T& x )
 {
   std::cout << x << std::endl;
   return;
@@ -46,8 +47,8 @@ int main() {
   int tab[] = { 0, 1, 2, 3, 4 };
   Awesome tab2[5];
 
-  iter( tab, 5, print<const int> );
-  iter( tab2, 5, print<Awesome> );
+  iter( tab, 5, print );
+  iter( tab2, 5, qprint<Awesome> );
 
   return 0;
 }
