@@ -3,6 +3,7 @@
 
 # include <vector>
 # include <cmath>
+# include <ctime>
 
 class Span
 {
@@ -19,6 +20,14 @@ class Span
 		void addNumber(int num);
 		int longestSpan(void);
 		int shortestSpan(void);
+
+		template <typename T>
+		void insert(typename T::iterator begin, typename T::iterator end)
+		{
+			if (_v.size() + std::distance(begin, end) > _n)
+				throw std::exception();
+			_v.insert(_v.end(), begin, end);
+		}
 };
 
 #endif

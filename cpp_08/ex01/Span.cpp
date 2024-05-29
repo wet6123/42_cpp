@@ -34,12 +34,14 @@ int Span::shortestSpan(void)
 	if (_v.size() <= 1)
 		throw std::exception();
 
+	std::vector<int> tmp = _v;
+	std::sort(tmp.begin(), tmp.end());
 	int min;
 	min = INT_MAX;
-	for (size_t i = 0; i < _v.size() - 1; i++)
+	for (size_t i = 1; i < tmp.size(); i++)
 	{
-		if (abs(_v[i + 1] - _v[i]) < min)
-			min = abs(_v[i + 1] - _v[i]);
+		if (tmp[i] - tmp[i - 1] < min)
+			min = tmp[i] - tmp[i - 1];
 	}
 	return (min);
 }
@@ -49,12 +51,8 @@ int Span::longestSpan(void)
 	if (_v.size() <= 1)
 		throw std::exception();
 
-	int max;
-	max = INT_MIN;
-	for (size_t i = 0; i < _v.size() - 1; i++)
-	{
-		if (abs(_v[i + 1] - _v[i]) > max)
-			max = abs(_v[i + 1] - _v[i]);
-	}
-	return (max);
+	std::vector<int> tmp = _v;
+	std::sort(tmp.begin(), tmp.end());
+	return (tmp[tmp.size()-1] - tmp[0]);
 }
+
