@@ -29,7 +29,7 @@ int main()
 	for (int i = 0; i < 10000; i++)
 		tmp.push_back(i);
 
-	sp3.insert<std::list<int> >(tmp.begin(), tmp.end());
+	sp3.insertNumbers<std::list<int> >(tmp.begin(), tmp.end());
 	std::cout << sp3.shortestSpan() << std::endl;
 	std::cout << sp3.longestSpan() << std::endl;
 

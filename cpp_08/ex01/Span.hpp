@@ -4,6 +4,8 @@
 # include <vector>
 # include <cmath>
 # include <ctime>
+# include <climits>
+# include <algorithm>
 
 class Span
 {
@@ -22,7 +24,7 @@ class Span
 		int shortestSpan(void);
 
 		template <typename T>
-		void insert(typename T::iterator begin, typename T::iterator end)
+		void insertNumbers(typename T::iterator begin, typename T::iterator end)
 		{
 			if (_v.size() + std::distance(begin, end) > _n)
 				throw std::exception();
