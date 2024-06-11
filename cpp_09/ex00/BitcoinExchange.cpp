@@ -1,7 +1,9 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange(void)
-{}
+{
+    setData(DATAFILE);
+}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& obj)
 {
@@ -11,17 +13,50 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange& obj)
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& obj)
 {
     _data = obj._data;
-    _amount = obj._amount;
     return (*this);
 }
 
 BitcoinExchange::~BitcoinExchange(void)
 {}
 
-BitcoinExchange::BitcoinExchange(const char *filename)
+int BitcoinExchange::parseDate(const std::string &date)
 {
-    setData(DATAFILE);
-    setAmount(filename);
+    for(unsigned int i = 0; i < date.size(); i++)
+    {
+        if (i != 4 && i != 7 && isdigit(date[i]) == false)
+            throw std::invalid_argument("Error: Invalid date format: not a number");
+    }
+    if (date.size() != 10)
+        throw std::invalid_argument("Error: Invalid date format: length");
+    if (date[4] != '-' || date[7] != '-')
+        throw std::invalid_argument("Error: Invalid date format: no dash");
+
+    int year = std::strtod(date.substr(0, 4).c_str(), NULL);
+    int month = std::strtod(date.substr(5, 2).c_str(), NULL);
+    int day = std::strtod(date.substr(8, 2).c_str(), NULL);
+
+    if (month > 12 || month < 1)
+        throw std::invalid_argument("Error: bad input => " + date);
+    if (day > 31 || day < 1)
+        throw std::invalid_argument("Error: bad input => " + date);
+
+    return (year * 10000 + month * 100 + day);
+}
+
+double BitcoinExchange::parseRate(const std::string &rate)
+{
+    double result = std::strtod(rate.c_str(), NULL);
+    return (result);
+}
+
+double BitcoinExchange::parseValue(const std::string &amount)
+{
+    double result = std::strtod(amount.c_str(), NULL);
+    if (result < 0 )
+        throw std::invalid_argument("Error: not a positive number.");
+    if (result > INT_MAX)
+        throw std::invalid_argument("Error: too large a number.");
+    return (result);
 }
 
 void BitcoinExchange::setData(const char *filename)
@@ -39,24 +74,20 @@ void BitcoinExchange::setData(const char *filename)
     std::string tmp;
     while (std::getline(datafile, tmp))
     {
-        std::string date = tmp.substr(0, 10);
-        if (date[4] != '-' || date[7] != '-')
+        try
         {
-            std::cerr << "Error: Invalid date format" << std::endl;
-            exit(1);
+            int date = parseDate(tmp.substr(0, 10));
+            double value = parseRate(tmp.substr(11));
+            _data.insert(std::pair<int, double>(date, value));
         }
-        if (date.substr(5, 2) > "12" || date.substr(8, 2) > "31")
+        catch(const std::exception& e)
         {
-            std::cerr << "Error: Invalid date range" << std::endl;
-            exit(1);
+            std::cerr << e.what() << '\n';
         }
-        double count = std::strtod(tmp.substr(11).c_str(), NULL);
-        // _data.insert(std::pair<int, double>(std::stoi(date.substr(8, 2)), count));
-        _data.insert({std::stoi(date.substr(8, 2)), count});
     }
 }
 
-void BitcoinExchange::setAmount(const char *filename)
+void BitcoinExchange::printExchange(const char *filename)
 {
     // open file
     std::ifstream amountfile;
@@ -67,33 +98,70 @@ void BitcoinExchange::setAmount(const char *filename)
         exit(1);
     }
 
-    // set amount
-    std::string tmp;
-    while (std::getline(amountfile, tmp))
+    // read file
+    std::string line;
+    while(std::getline(amountfile, line))
     {
-        std::string date = tmp.substr(0, 10);
-        if (date[4] != '-' || date[7] != '-')
+        try
         {
-            std::cerr << "Error: Invalid date format" << std::endl;
-            exit(1);
+            // readline
+            int date = parseDate(line.substr(0, 10));
+            double value = parseValue(line.substr(13));
+            // calculate
+            double result = calculate(date, value);
+            std::cout << printDate(date) << " => " << value << " = " << result << std::endl;
         }
-        if (date.substr(5, 2) > "12" || date.substr(8, 2) > "31")
+        catch(const std::exception& e)
         {
-            std::cerr << "Error: Invalid date range" << std::endl;
-            exit(1);
+            std::cerr << e.what() << '\n';
         }
-        int count = std::stoi(tmp.substr(11));
-        if (count < 0 || count > 1000)
-        {
-            std::cerr << "Error: Invalid amount range" << std::endl;
-            exit(1);
-        }
-        // _amount.insert(std::pair<int, int>(std::stoi(date.substr(8, 2)), count));
-        _amount.insert({std::stoi(date.substr(8, 2)), count});
     }
 }
 
-std::map<int, int>::iterator BitcoinExchange::printExchange(void)
+double BitcoinExchange::calculate(int date, double value)
 {
-    return (_amount.begin());
+    // find data
+    std::map<int, double>::iterator dataIt = findData(date);
+    // calculate
+    return (dataIt->second * value);
+}
+
+std::map<int,double>::iterator BitcoinExchange::findData(int date)
+{
+    std::map<int, double>::iterator dataStart = _data.begin();
+    std::map<int, double>::iterator dataEnd = _data.end();
+    std::map<int, double>::iterator closestIt = dataStart;
+
+    for (std::map<int, double>::iterator dataIt = dataStart; dataIt != dataEnd; dataIt++)
+    {
+        if (dataIt->first == date)
+            return (dataIt);
+        else if (dataIt->first > date)
+        {
+            return (closestIt);
+        }
+        closestIt = dataIt;
+    }
+    throw std::invalid_argument("Error: Invalid date");
+}
+
+std::string BitcoinExchange::printDate(int date)
+{
+    std::string result;
+    for(unsigned int i = 0; i < 4 - std::to_string(date / 10000).size(); i++)
+        result += '0';
+    result += std::to_string(date / 10000);
+
+    result += '-';
+
+    for(unsigned int i = 0; i < 2 - std::to_string((date % 10000) / 100).size(); i++)
+        result += '0';
+    result += std::to_string((date % 10000) / 100);
+
+    result += '-';
+
+    for(unsigned int i = 0; i < 2 - std::to_string(date % 100).size(); i++)
+        result += '0';
+    result += std::to_string(date % 100);
+    return (result);
 }

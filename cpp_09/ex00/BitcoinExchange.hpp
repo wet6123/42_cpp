@@ -6,6 +6,7 @@
 # include <map>
 # include <iterator>
 # include <cstdlib>
+# include <cctype>
 
 # define DATAFILE "data.csv"
 
@@ -13,18 +14,24 @@ class BitcoinExchange
 {
 	private:
 		std::map<int, double> _data;
-		std::map<int, int> _amount;
 	public:
 		BitcoinExchange(void);
-		BitcoinExchange(const char *filename);
 		BitcoinExchange(const BitcoinExchange& obj);
 		BitcoinExchange& operator=(const BitcoinExchange& obj);
 		~BitcoinExchange(void);
 
+		// parsing
+		int parseDate(const std::string &date);
+		double parseRate(const std::string &rate);
+		double parseValue(const std::string &value);
+
 		void setData(const char *filename);
-		void setAmount(const char *filename);
-		// 입출력 다시 세팅
-		std::map<int, int>::iterator printExchange(void);
+		// print all
+		void printExchange(const char *filename);
+		// calculate 1
+		double calculate(int date, double value);
+		std::map<int,double>::iterator findData(int date);
+		std::string printDate(int date);
 };
 
 #endif
