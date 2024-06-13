@@ -23,7 +23,7 @@ int BitcoinExchange::parseDate(const std::string &date)
 {
     for(unsigned int i = 0; i < date.size(); i++)
     {
-        if (i != 4 && i != 7 && isdigit(date[i]) == false)
+        if (i != 4 && i != 7 && std::isdigit(date[i]) == false)
             throw std::invalid_argument("Error: Invalid date format: not a number");
     }
     if (date.size() != 10)

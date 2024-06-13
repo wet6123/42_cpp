@@ -26,7 +26,7 @@ void RPN::calculate(std::string str)
 
     while (i < str.size())
     {
-        if (isdigit(str[i]))
+        if (std::isdigit(str[i]))
         {
             stack.push(std::strtod(&str[i], NULL));
             i++;
