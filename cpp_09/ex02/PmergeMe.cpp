@@ -20,19 +20,27 @@ PmergeMe::PmergeMe(int argc, char **argv)
         exit(1);
     }
 
-    for (std::vector< std::vector<int> >::iterator it = _v.begin(); it < _v.end(); it++)
+    for (std::vector< std::vector<int> >::iterator it = _v.begin(); it != _v.end(); it++)
     {
-        for (std::vector<int>::iterator it2 = it->begin(); it2 < it->end(); it2++)
+        for (std::vector<int>::iterator it2 = it->begin(); it2 != it->end(); it2++)
         {
             std::cout << *it2 << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    for (std::list< std::list<int> >::iterator lit = _l.begin(); lit != _l.end(); lit++)
+    {
+        for (std::list<int>::iterator lit2 = lit->begin(); lit2 != lit->end(); lit2++)
+        {
+            std::cout << *lit2 << " ";
         }
         std::cout << std::endl;
     }
 }
 
 PmergeMe::~PmergeMe(void)
-{
-}
+{}
 
 std::vector<int> PmergeMe::parseNums(int argc, char **argv)
 {
