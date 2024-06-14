@@ -2,6 +2,9 @@
 
 int main(int argc, char **argv)
 {
-	PmergeMe(argc, argv);
+	PmergeMe test(argc, argv);
+
+	test.sort();
+
 	return (0);
 }

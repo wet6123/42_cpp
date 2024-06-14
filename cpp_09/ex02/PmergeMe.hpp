@@ -11,7 +11,10 @@ class PmergeMe
 {
     private:
         std::vector< std::vector<int> > _v;
-        std::list< std::list<int> > _l;   
+        std::list< std::list<int> > _l;
+        std::vector<int> nums;
+        double vectorTime;
+        double listTime;
 
         PmergeMe(void);
         PmergeMe(const PmergeMe &other);
@@ -23,6 +26,11 @@ class PmergeMe
         std::vector<int> parseNums(int argc, char **argv);
         void fillVector(std::vector<int> nums);
         void fillList(std::vector<int> nums);
+
+        void sort(void);
+        void sortVector(void);
+        void sortList(void);
+        void printResult(void);
 };
 
 #endif

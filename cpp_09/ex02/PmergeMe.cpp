@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
 PmergeMe::PmergeMe(int argc, char **argv)
+: vectorTime(0), listTime(0)
 {
     if (argc < 2)
     {
@@ -10,7 +11,7 @@ PmergeMe::PmergeMe(int argc, char **argv)
 
     try
     {
-        std::vector<int> nums = parseNums(argc, argv);
+        nums = parseNums(argc, argv);
         fillVector(nums);
         fillList(nums);
     }
@@ -20,23 +21,23 @@ PmergeMe::PmergeMe(int argc, char **argv)
         exit(1);
     }
 
-    for (std::vector< std::vector<int> >::iterator it = _v.begin(); it != _v.end(); it++)
-    {
-        for (std::vector<int>::iterator it2 = it->begin(); it2 != it->end(); it2++)
-        {
-            std::cout << *it2 << " ";
-        }
-        std::cout << std::endl;
-    }
+    // for (std::vector< std::vector<int> >::iterator it = _v.begin(); it != _v.end(); it++)
+    // {
+    //     for (std::vector<int>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+    //     {
+    //         std::cout << *it2 << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
-    for (std::list< std::list<int> >::iterator lit = _l.begin(); lit != _l.end(); lit++)
-    {
-        for (std::list<int>::iterator lit2 = lit->begin(); lit2 != lit->end(); lit2++)
-        {
-            std::cout << *lit2 << " ";
-        }
-        std::cout << std::endl;
-    }
+    // for (std::list< std::list<int> >::iterator lit = _l.begin(); lit != _l.end(); lit++)
+    // {
+    //     for (std::list<int>::iterator lit2 = lit->begin(); lit2 != lit->end(); lit2++)
+    //     {
+    //         std::cout << *lit2 << " ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 }
 
 PmergeMe::~PmergeMe(void)
@@ -111,4 +112,59 @@ void PmergeMe::fillList(std::vector<int> nums)
 
         _l.push_back(l);
     }
+}
+
+void PmergeMe::sort(void)
+{
+    sortVector();
+    sortList();
+    printResult();
+}
+
+void PmergeMe::sortVector(void)
+{
+
+}
+
+void PmergeMe::sortList(void)
+{
+    for (std::list< std::list<int> >::iterator lit = _l.begin(); lit != _l.end(); lit++)
+    {
+        if (lit->size() == 2)
+        {
+            std::list<int>::iterator lit2 = lit->begin();
+            std::list<int>::iterator lit3 = lit->end();
+            lit3--;
+
+            if (*lit2 > *lit3)
+            {
+                int tmp = *lit2;
+                *lit2 = *lit3;
+                *lit3 = tmp;
+            }
+        }
+    }
+}
+
+void PmergeMe::printResult(void)
+{
+    std::cout << "Before:   ";
+    for (std::vector<int>::iterator it = nums.begin(); it != nums.end(); it++)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "After:    ";
+    for (std::vector< std::vector<int> >::iterator it = _v.begin(); it != _v.end(); it++)
+    {
+        for (std::vector<int>::iterator it2 = it->begin(); it2 != it->end(); it2++)
+        {
+            std::cout << *it2 << " ";
+        }
+    }
+    std::cout << std::endl;
+
+    std::cout << "Time to process a range of    " << nums.size() << " elements with std::vector :   " << vectorTime << " us" << std::endl;
+    std::cout << "Time to process a range of    " << nums.size() << " elements with std::list   :   " << listTime << " us" << std::endl;
 }
