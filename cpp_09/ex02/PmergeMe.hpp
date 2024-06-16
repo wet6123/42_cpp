@@ -6,13 +6,16 @@
 # include <list>
 # include <cstdlib>
 # include <cctype>
+# include <sys/time.h>
 
 class PmergeMe
 {
+    
     private:
-        std::vector< std::vector<int> > _v;
-        std::list< std::list<int> > _l;
+        std::vector<unsigned int> Jacobsthal;
         std::vector<int> nums;
+        std::vector<int> _v;
+        std::list<int> _l;
         double vectorTime;
         double listTime;
 
@@ -24,12 +27,10 @@ class PmergeMe
         ~PmergeMe(void);
 
         std::vector<int> parseNums(int argc, char **argv);
-        void fillVector(std::vector<int> nums);
-        void fillList(std::vector<int> nums);
 
         void sort(void);
-        void sortVector(void);
-        void sortList(void);
+        void sortVector(std::vector< std::pair<int, int> > *v);
+        int *sortList(std::list<int> l);
         void printResult(void);
 };
 
