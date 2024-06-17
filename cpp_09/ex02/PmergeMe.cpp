@@ -19,11 +19,22 @@ PmergeMe::PmergeMe(int argc, char **argv)
         exit(1);
     }
 
-    Jacobsthal.push_back(0);
-    Jacobsthal.push_back(1);
-    while(Jacobsthal.back() < nums.size())
+    // set vector Jacobsthal
+    JacobsthalVector.push_back(0);
+    JacobsthalVector.push_back(1);
+    while(JacobsthalVector.back() < nums.size())
     {
-        Jacobsthal.push_back(Jacobsthal[Jacobsthal.size() - 1] + 2 * Jacobsthal[Jacobsthal.size() - 2]);
+        JacobsthalVector.push_back(JacobsthalVector[JacobsthalVector.size() - 1] + 2 * JacobsthalVector[JacobsthalVector.size() - 2]);
+    }
+
+    // set list Jacobsthal
+    JacobsthalList.push_back(0);
+    JacobsthalList.push_back(1);
+    while(JacobsthalList.back() < nums.size())
+    {
+        std::list<unsigned int>::iterator listEnd = JacobsthalList.end();
+        std::advance(listEnd, -2);
+        JacobsthalList.push_back(JacobsthalList.back() + 2 * (*listEnd));
     }
 }
 
@@ -53,25 +64,19 @@ std::vector<int> PmergeMe::parseNums(int argc, char **argv)
 void PmergeMe::sort(void)
 {
     struct timeval start, end;
-    std::vector< std::pair<int, int> > v;
     for(std::vector<int>::iterator it = nums.begin(); it != nums.end(); it++)
     {
-        v.push_back(std::make_pair(*it, it - nums.begin()));
+        _v.push_back(std::make_pair(*it, it - nums.begin()));
+        _l.push_back(std::make_pair(*it, it - nums.begin()));
     }
     
     gettimeofday(&start, NULL);
-    // 수정
-    sortVector(&v);
-    for (std::vector< std::pair<int, int> >::iterator it = v.begin(); it != v.end(); it++)
-    {
-        _v.push_back(it->first);
-    }
-    // 여기까지
+    sortVector(&_v);
     gettimeofday(&end, NULL);
     vectorTime = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
     
     gettimeofday(&start, NULL);
-    sortList(_l);
+    sortList(&_l);
     gettimeofday(&end, NULL);
     listTime = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
 
@@ -138,11 +143,11 @@ void PmergeMe::sortVector(std::vector< std::pair<int, int> > *v)
         mainIdx.push_back(it - main.begin());
     }
 
-    for (unsigned int i = 2; i < Jacobsthal.size(); i++)
+    for (unsigned int i = 2; i < JacobsthalVector.size(); i++)
     {
     //  0 1 1 3 5 11 ...
-        int start = Jacobsthal[i] - 1;
-        int end = Jacobsthal[i - 1] - 1;
+        int start = JacobsthalVector[i] - 1;
+        int end = JacobsthalVector[i - 1] - 1;
 
         if (start == end && start == 0)
             end = -1;
@@ -197,10 +202,132 @@ void PmergeMe::sortVector(std::vector< std::pair<int, int> > *v)
     return ;
 }
 
-int *PmergeMe::sortList(std::list<int> l)
+void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
 {
-    (void)l;
-    return (NULL);
+    if (l->size() == 1)
+    {
+        return;
+    }
+
+    std::list< std::pair<int, int> > main;
+    std::list< std::pair<int, int> > sub;
+
+    for (std::list< std::pair<int, int> >::iterator it = l->begin(); (it != l->end()) && (std::next(it, 1) != l->end()); std::advance(it, 2))
+    {
+        int num1 = it->first;
+        int num2 = std::next(it, 1)->first;
+
+        if (num1 > num2)
+        {
+            main.push_back(std::make_pair(num1, it->second));
+        }
+        else
+        {
+            main.push_back(std::make_pair(num2, std::next(it, 1)->second));
+        }
+    }
+
+    sortList(&main);
+
+    for (std::list< std::pair<int, int> >::iterator it = main.begin(); it != main.end(); it++)
+    {
+        int distance = 0;
+        for (std::list< std::pair<int, int> >::iterator it2 = l->begin(); it2 != l->end(); it2++)
+        {
+            if (it->second == it2->second)
+            {
+                if (distance % 2 == 0)
+                {
+                    sub.push_back(std::make_pair(std::next(it2, 1)->first, std::next(it2, 1)->second));
+                }
+                else
+                {
+                    sub.push_back(std::make_pair(std::prev(it2, 1)->first, std::prev(it2, 1)->second));
+                }
+            }
+            distance++;
+        }
+    }
+
+    if (l->size() % 2 == 1)
+    {
+        sub.push_back(std::make_pair(l->back().first, l->back().second));
+    }
+
+    //binary search
+    std::list< std::pair<int, int> > newL;
+    newL = main;
+    std::list<int> mainIdx;
+    int mainSize = 0;
+
+    for (std::list< std::pair<int, int> >::iterator it = main.begin(); it != main.end(); it++)
+    {
+        mainIdx.push_back(mainSize);
+        mainSize++;
+    }
+
+    for (unsigned int i = 2; i < JacobsthalList.size(); i++)
+    {
+        int start = *(std::next(JacobsthalList.begin(), i)) - 1;
+        int end = *(std::next(JacobsthalList.begin(), i - 1)) - 1;
+
+        if (start == end && start == 0)
+            end = -1;
+        if (start > static_cast<int>(sub.size() - 1))
+            start = sub.size() - 1;
+        if (end > static_cast<int>(sub.size() - 1))
+            break;
+
+        for (int j = start; j > end; j--)
+        {
+            int left = 0;
+            int right = *(std::next(mainIdx.begin(), j));
+            if (static_cast<int>(mainIdx.size()) < j + 1)
+                right = newL.size() - 1;
+            int mid = (left + right) / 2;
+
+            while (left <= right)
+            {
+                mid = (left + right) / 2;
+
+                std::list< std::pair<int, int> >::iterator newLIt = newL.begin();
+                std::advance(newLIt, mid);
+                std::list< std::pair<int, int> >::iterator subIt = sub.begin();
+                std::advance(subIt, j);
+
+                if (newLIt->first == subIt->first)
+                {
+                    break ;
+                }
+                else if (newLIt->first < subIt->first)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+            if (std::next(newL.begin(), mid)->first < std::next(sub.begin(), j)->first)
+            {
+                mid++;
+            }
+
+            newL.insert(std::next(newL.begin(), mid), *(std::next(sub.begin(), j)));
+
+            for (std::list<int>::iterator mainIdxIt = mainIdx.begin(); mainIdxIt != mainIdx.end(); mainIdxIt++)
+            {
+                if (*mainIdxIt >= mid)
+                {
+                    (*mainIdxIt)++;
+                }
+            }
+        }
+    }
+
+    *l = newL;
+
+    return ;
 }
 
 void PmergeMe::printResult(void)
@@ -212,12 +339,20 @@ void PmergeMe::printResult(void)
     }
     std::cout << std::endl;
 
+    // vector
     std::cout << "After:    ";
-    for (std::vector<int>::iterator it = _v.begin(); it != _v.end(); it++)
+    for (std::vector< std::pair<int, int> >::iterator it = _v.begin(); it != _v.end(); it++)
     {
-        std::cout << *it << " ";
+        std::cout << it->first << " ";
     }
     std::cout << std::endl;
+    //list
+    // std::cout << "After:    ";
+    // for (std::list< std::pair<int, int> >::iterator it = _l.begin(); it != _l.end(); it++)
+    // {
+    //     std::cout << it->first << " ";
+    // }
+    // std::cout << std::endl;
 
     std::cout << "Time to process a range of    " << nums.size() << " elements with std::vector :   " << vectorTime << " us" << std::endl;
     std::cout << "Time to process a range of    " << nums.size() << " elements with std::list   :   " << listTime << " us" << std::endl;

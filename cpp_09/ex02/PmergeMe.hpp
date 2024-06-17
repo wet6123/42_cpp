@@ -7,14 +7,17 @@
 # include <cstdlib>
 # include <cctype>
 # include <sys/time.h>
+# include <iterator>
+# include <algorithm>
 
 class PmergeMe
 {
     private:
-        std::vector<unsigned int> Jacobsthal;
+        std::vector<unsigned int> JacobsthalVector;
+        std::list<unsigned int> JacobsthalList;
         std::vector<int> nums;
-        std::vector<int> _v;
-        std::list<int> _l;
+        std::vector< std::pair<int, int> > _v;
+        std::list< std::pair<int, int> > _l;
         double vectorTime;
         double listTime;
 
@@ -29,7 +32,7 @@ class PmergeMe
 
         void sort(void);
         void sortVector(std::vector< std::pair<int, int> > *v);
-        int *sortList(std::list<int> l);
+        void sortList(std::list< std::pair<int, int> > *l);
         void printResult(void);
 };
 
