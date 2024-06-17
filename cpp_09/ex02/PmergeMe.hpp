@@ -10,7 +10,6 @@
 
 class PmergeMe
 {
-    
     private:
         std::vector<unsigned int> Jacobsthal;
         std::vector<int> nums;
