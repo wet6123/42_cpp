@@ -25,13 +25,6 @@ PmergeMe::PmergeMe(int argc, char **argv)
     {
         Jacobsthal.push_back(Jacobsthal[Jacobsthal.size() - 1] + 2 * Jacobsthal[Jacobsthal.size() - 2]);
     }
-    
-    // std::cout << "Jacobsthal: ";
-    // for (std::vector<unsigned int>::iterator it = Jacobsthal.begin(); it != Jacobsthal.end(); it++)
-    // {
-    //     std::cout << *it << " ";
-    // }
-    // std::cout << std::endl;
 }
 
 PmergeMe::~PmergeMe(void)
@@ -158,8 +151,6 @@ void PmergeMe::sortVector(std::vector< std::pair<int, int> > *v)
         if (end > static_cast<int>(sub.size() - 1))
             break;
 
-        // std::cout << "start: " << start << " end: " << end << std::endl;
-
         for (int j = start; j > end; j--)
         {
             int left = 0;
@@ -167,9 +158,6 @@ void PmergeMe::sortVector(std::vector< std::pair<int, int> > *v)
             if (static_cast<int>(mainIdx.size()) < j + 1)
                 right = newV.size() - 1;
             int mid = (left + right) / 2;
-
-            // delete
-            // std::cout << "left: " << left << " right: " << right << " mid: " << mid << std::endl;
 
             while (left <= right)
             {
@@ -194,53 +182,15 @@ void PmergeMe::sortVector(std::vector< std::pair<int, int> > *v)
 
             newV.insert(newV.begin() + mid, sub[j]);
 
-// std::cout << "sub: " << sub[j].first << ", idx: " << mid << std::endl;
-// std::cout << "mainIdx: ";
             for (std::vector<int>::iterator mainIdxIt = mainIdx.begin(); mainIdxIt != mainIdx.end(); mainIdxIt++)
             {
                 if (*mainIdxIt >= mid)
                 {
                     (*mainIdxIt)++;
                 }
-                // std::cout << *mainIdxIt << " ";
             }
-            // std::cout << std::endl;
-// std::cout << "newV: ";
-            // for (std::vector< std::pair<int, int> >::iterator newVIt = newV.begin(); newVIt != newV.end(); newVIt++)
-            // {
-            //     std::cout << newVIt->first << " ";
-            // }
-            // std::cout << std::endl;
         }
     }
-
-    // for (std::vector< std::pair<int, int> >::iterator it = sub.begin(); it != sub.end(); it++)
-    // {
-    //     int left = 0;
-    //     int right = newV.size() - 1;
-    //     int mid = 0;
-    //     while (left <= right)
-    //     {
-    //         mid = (left + right) / 2;
-    //         if (newV[mid].first == it->first)
-    //         {
-    //             break ;
-    //         }
-    //         else if (newV[mid].first < it->first)
-    //         {
-    //             left = mid + 1;
-    //         }
-    //         else
-    //         {
-    //             right = mid - 1;
-    //         }
-    //     }
-    //     if (newV[mid].first < it->first)
-    //     {
-    //         mid++;
-    //     }
-    //     newV.insert(newV.begin() + mid, *it);
-    // }
 
     *v = newV;
 
