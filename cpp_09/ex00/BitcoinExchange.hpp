@@ -7,6 +7,8 @@
 # include <iterator>
 # include <cstdlib>
 # include <cctype>
+# include <climits>
+# include <sstream>
 
 # define DATAFILE "data.csv"
 
@@ -32,6 +34,7 @@ class BitcoinExchange
 		double calculate(int date, double value);
 		std::map<int,double>::iterator findData(int date);
 		std::string printDate(int date);
+		unsigned int howManyDigit(int n);
 };
 
 #endif

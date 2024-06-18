@@ -147,21 +147,32 @@ std::map<int,double>::iterator BitcoinExchange::findData(int date)
 
 std::string BitcoinExchange::printDate(int date)
 {
-    std::string result;
-    for(unsigned int i = 0; i < 4 - std::to_string(date / 10000).size(); i++)
-        result += '0';
-    result += std::to_string(date / 10000);
+    std::stringstream result;
+    for(unsigned int i = 0; i < 4 - howManyDigit(date / 10000); i++)
+        result << '0';
+    result << date / 10000;
 
-    result += '-';
+    result << '-';
 
-    for(unsigned int i = 0; i < 2 - std::to_string((date % 10000) / 100).size(); i++)
-        result += '0';
-    result += std::to_string((date % 10000) / 100);
+    for(unsigned int i = 0; i < 2 - howManyDigit((date % 10000) / 100); i++)
+        result << '0';
+    result << (date % 10000) / 100;
 
-    result += '-';
+    result << '-';
 
-    for(unsigned int i = 0; i < 2 - std::to_string(date % 100).size(); i++)
-        result += '0';
-    result += std::to_string(date % 100);
-    return (result);
+    for(unsigned int i = 0; i < 2 - howManyDigit(date % 100); i++)
+        result << '0';
+    result << date % 100;
+    return (result.str());
+}
+
+unsigned int BitcoinExchange::howManyDigit(int n)
+{
+    unsigned int count = 0;
+    while (n != 0)
+    {
+        n = n / 10;
+        count++;
+    }
+    return (count);
 }
