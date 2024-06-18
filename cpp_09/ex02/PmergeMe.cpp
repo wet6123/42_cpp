@@ -212,10 +212,10 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
     std::list< std::pair<int, int> > main;
     std::list< std::pair<int, int> > sub;
 
-    for (std::list< std::pair<int, int> >::iterator it = l->begin(); (it != l->end()) && (std::next(it, 1) != l->end()); std::advance(it, 2))
+    for (std::list< std::pair<int, int> >::iterator it = l->begin(); (it != l->end()) && (::next(it, 1) != l->end()); std::advance(it, 2))
     {
         int num1 = it->first;
-        int num2 = std::next(it, 1)->first;
+        int num2 = ::next(it, 1)->first;
 
         if (num1 > num2)
         {
@@ -223,7 +223,7 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
         }
         else
         {
-            main.push_back(std::make_pair(num2, std::next(it, 1)->second));
+            main.push_back(std::make_pair(num2, ::next(it, 1)->second));
         }
     }
 
@@ -238,11 +238,11 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
             {
                 if (distance % 2 == 0)
                 {
-                    sub.push_back(std::make_pair(std::next(it2, 1)->first, std::next(it2, 1)->second));
+                    sub.push_back(std::make_pair(::next(it2, 1)->first, ::next(it2, 1)->second));
                 }
                 else
                 {
-                    sub.push_back(std::make_pair(std::prev(it2, 1)->first, std::prev(it2, 1)->second));
+                    sub.push_back(std::make_pair(::prev(it2, 1)->first, ::prev(it2, 1)->second));
                 }
             }
             distance++;
@@ -268,8 +268,8 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
 
     for (unsigned int i = 2; i < JacobsthalList.size(); i++)
     {
-        int start = *(std::next(JacobsthalList.begin(), i)) - 1;
-        int end = *(std::next(JacobsthalList.begin(), i - 1)) - 1;
+        int start = *(::next(JacobsthalList.begin(), i)) - 1;
+        int end = *(::next(JacobsthalList.begin(), i - 1)) - 1;
 
         if (start == end && start == 0)
             end = -1;
@@ -281,7 +281,7 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
         for (int j = start; j > end; j--)
         {
             int left = 0;
-            int right = *(std::next(mainIdx.begin(), j));
+            int right = *(::next(mainIdx.begin(), j));
             if (static_cast<int>(mainIdx.size()) < j + 1)
                 right = newL.size() - 1;
             int mid = (left + right) / 2;
@@ -308,12 +308,12 @@ void PmergeMe::sortList(std::list< std::pair<int, int> > *l)
                     right = mid - 1;
                 }
             }
-            if (std::next(newL.begin(), mid)->first < std::next(sub.begin(), j)->first)
+            if (::next(newL.begin(), mid)->first < ::next(sub.begin(), j)->first)
             {
                 mid++;
             }
 
-            newL.insert(std::next(newL.begin(), mid), *(std::next(sub.begin(), j)));
+            newL.insert(::next(newL.begin(), mid), *(::next(sub.begin(), j)));
 
             for (std::list<int>::iterator mainIdxIt = mainIdx.begin(); mainIdxIt != mainIdx.end(); mainIdxIt++)
             {

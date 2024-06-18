@@ -34,6 +34,21 @@ class PmergeMe
         void sortVector(std::vector< std::pair<int, int> > *v);
         void sortList(std::list< std::pair<int, int> > *l);
         void printResult(void);
+
+};
+
+template <typename InputIterator>
+InputIterator next(InputIterator it, typename std::iterator_traits<InputIterator>::difference_type n = 1)
+{
+    std::advance(it, n);
+    return it;
+};
+
+template <typename InputIterator>
+InputIterator prev(InputIterator it, typename std::iterator_traits<InputIterator>::difference_type n = 1)
+{
+    std::advance(it, -n);
+    return it;
 };
 
 #endif
