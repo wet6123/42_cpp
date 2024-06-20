@@ -35,9 +35,11 @@ int BitcoinExchange::parseDate(const std::string &date)
     int month = std::strtod(date.substr(5, 2).c_str(), NULL);
     int day = std::strtod(date.substr(8, 2).c_str(), NULL);
 
+    const int _date[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+
     if (month > 12 || month < 1)
         throw std::invalid_argument("Error: bad input => " + date);
-    if (day > 31 || day < 1)
+    if (day > _date[month - 1] || day < 1)
         throw std::invalid_argument("Error: bad input => " + date);
 
     return (year * 10000 + month * 100 + day);
@@ -54,7 +56,7 @@ double BitcoinExchange::parseValue(const std::string &amount)
     double result = std::strtod(amount.c_str(), NULL);
     if (result < 0 )
         throw std::invalid_argument("Error: not a positive number.");
-    if (result > INT_MAX)
+    if (result > 1000)
         throw std::invalid_argument("Error: too large a number.");
     return (result);
 }
