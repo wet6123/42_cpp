@@ -144,7 +144,7 @@ std::map<int,double>::iterator BitcoinExchange::findData(int date)
         }
         closestIt = dataIt;
     }
-    throw std::invalid_argument("Error: Invalid date");
+    return (closestIt);
 }
 
 std::string BitcoinExchange::printDate(int date)
